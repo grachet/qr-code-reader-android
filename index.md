@@ -1,37 +1,43 @@
-## Welcome to GitHub Pages
+# Privacy Policy for QR Code Reader
 
-You can use the [editor on GitHub](https://github.com/grachet/qr-code-reader-android/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+At QR Code Reader, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by QR Code Reader and how we use it.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
 
-### Markdown
+## Log Files
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+QR Code Reader follows a standard procedure of using log files. These files log visitors when they use app. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the app, tracking users' movement on the app, and gathering demographic information.
 
-```markdown
-Syntax highlighted code block
+## Our Advertising Partners
 
-# Header 1
-## Header 2
-### Header 3
+Some of advertisers in our app may use cookies and web beacons. Our advertising partners are listed below. Each of our advertising partners has their own Privacy Policy for their policies on user data. For easier access, we hyperlinked to their Privacy Policies below.
 
-- Bulleted
-- List
+*   Google
 
-1. Numbered
-2. List
+    [https://policies.google.com/technologies/ads](https://policies.google.com/technologies/ads)
 
-**Bold** and _Italic_ and `Code` text
+## Privacy Policies
 
-[Link](url) and ![Image](src)
-```
+You may consult this list to find the Privacy Policy for each of the advertising partners of QR Code Reader.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Beacons that are used in their respective advertisements and links that appear on QR Code Reader. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on this app or other apps or websites.
 
-### Jekyll Themes
+Note that QR Code Reader has no access to or control over these cookies that are used by third-party advertisers.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/grachet/qr-code-reader-android/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Third Party Privacy Policies
 
-### Support or Contact
+QR Code Reader's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Children's Information
+
+Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.
+
+QR Code Reader does not knowingly collect any Personal Identifiable Information from children under the age of 13\. If you think that your child provided this kind of information on our App, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.
+
+## Online Privacy Policy Only
+
+This Privacy Policy applies only to our online activities and is valid for visitors to our App with regards to the information that they shared and/or collect in QR Code Reader. This policy is not applicable to any information collected offline or via channels other than this app. Our Privacy Policy was created with the help of the [App Privacy Policy Generator from App-Privacy-Policy.com](https://www.app-privacy-policy.com/app-privacy-policy-generator/)
+
+## Consent
+
+By using our app, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.
