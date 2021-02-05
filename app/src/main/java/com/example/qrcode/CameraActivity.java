@@ -100,27 +100,16 @@ public class CameraActivity extends AppCompatActivity {
 //                            Point[] corners = barcode.getCornerPoints();
 
                             String rawValue = barcode.getRawValue();
+                            int valueType = barcode.getValueType();
 
-                            Log.v("Barcode", rawValue);
-
-                            sendQRCodeToMainActivity(rawValue);
-
-//                            int valueType = barcode.getValueType();
-                            // See API reference for complete list of supported types
-//                            switch (valueType) {
-//                                case Barcode.TYPE_WIFI:
-//                                    String ssid = barcode.getWifi().getSsid();
-//                                    String password = barcode.getWifi().getPassword();
-//                                    int type = barcode.getWifi().getEncryptionType();
-//                                    break;
-//                                case Barcode.TYPE_URL:
-//                                    String title = barcode.getUrl().getTitle();
-//                                    String url = barcode.getUrl().getUrl();
-//                                    break;
-//                            }
+                            if (valueType == Barcode.TYPE_URL) {
+                                String title = barcode.getUrl().getTitle();
+                                String url = barcode.getUrl().getUrl();
+                                sendQRCodeToMainActivity(title, url );
+                            } else {
+                                sendQRCodeToMainActivity(rawValue, null );
+                            }
                         }
-                        // [END get_barcodes]
-                        // [END_EXCLUDE]
                     }
                 })
                 .addOnCompleteListener(results -> imageProxy.close())
@@ -134,9 +123,10 @@ public class CameraActivity extends AppCompatActivity {
         // [END run_detector]
     }
 
-    private void sendQRCodeToMainActivity(String QRCodeValue) {
+    private void sendQRCodeToMainActivity(String title,String url ) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("QRCodeValue", QRCodeValue);
+        intent.putExtra("title", title);
+        intent.putExtra("url", url);
         QRCodeFound = true;
         startActivity(intent);
     }
