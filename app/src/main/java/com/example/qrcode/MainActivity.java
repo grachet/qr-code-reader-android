@@ -3,10 +3,14 @@ package com.example.qrcode;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +18,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+import com.google.zxing.WriterException;
 
 //https://developers.google.com/ml-kit/vision/barcode-scanning/android#java
+//https://www.natigbabayev.com/2019-07-13/building-qr-code-scanner-for-android-using-firebase-ml-kit-and-camerax
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView QRCodeTextField;
     private ImageView QRCodeImage;
     private Button openUrlButton;
+    Bitmap bitmap;
+    QRGEncoder qrgEncoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateQRCodeImage() {
 
-        String title = getIntent().getStringExtra("title");
+        String text = getIntent().getStringExtra("text");
         String url = getIntent().getStringExtra("url");
 
-//        QRCodeImage.setBackgroundColor(Color.rgb(255, 255, 255));
-        if (title != null) {
-            QRCodeTextField.setText(title);
+        if (text != null) {
+            QRCodeTextField.setText(text);
+
+            getQRCodeImage(text);
         }
         if (url != null) {
             openUrlButton.setVisibility(View.VISIBLE);
@@ -92,4 +103,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+      private void getQRCodeImage(String text) {
+          // below line is for getting
+          // the windowmanager service.
+          WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+          // initializing a variable for default display.
+          Display display = manager.getDefaultDisplay();
+
+          // creating a variable for point which
+          // is to be displayed in QR Code.
+          Point point = new Point();
+          display.getSize(point);
+
+          // getting width and
+          // height of a point
+          int width = point.x;
+          int height = point.y;
+
+          // generating dimension from width and height.
+          int dimen = width < height ? width : height;
+          dimen = dimen * 3 / 4;
+
+          // setting this dimensions inside our qr code
+          // encoder to generate our qr code.
+          qrgEncoder = new QRGEncoder(text, null, QRGContents.Type.TEXT, dimen);
+          try {
+              // getting our qrcode in the form of bitmap.
+              bitmap = qrgEncoder.encodeAsBitmap();
+              // the bitmap is set inside our image
+              // view using .setimagebitmap method.
+              QRCodeImage.setImageBitmap(bitmap);
+          } catch (WriterException e) {
+              // this method is called for
+              // exception handling.
+              Log.e("Tag", e.toString());
+          }
+      }
 }

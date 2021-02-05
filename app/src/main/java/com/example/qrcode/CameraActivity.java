@@ -103,7 +103,6 @@ public class CameraActivity extends AppCompatActivity {
                             int valueType = barcode.getValueType();
 
                             if (valueType == Barcode.TYPE_URL) {
-                                String title = barcode.getUrl().getTitle();
                                 String url = barcode.getUrl().getUrl();
                                 sendQRCodeToMainActivity( rawValue, url);
                             } else {
@@ -123,9 +122,9 @@ public class CameraActivity extends AppCompatActivity {
         // [END run_detector]
     }
 
-    private void sendQRCodeToMainActivity(String title, String url) {
+    private void sendQRCodeToMainActivity(String text, String url) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("title", title);
+        intent.putExtra("text", text);
         intent.putExtra("url", url);
         QRCodeFound = true;
         startActivity(intent);
