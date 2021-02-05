@@ -1,4 +1,4 @@
-plugins {
+plugins {re of using log files. These files log visitors when they use app. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time
     id 'com.android.application'
 }
 
@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.qrcode"
+        applicationId "com.grachet.qrcode"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
