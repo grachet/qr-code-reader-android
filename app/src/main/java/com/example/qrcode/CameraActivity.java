@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class CameraActivity extends AppCompatActivity {
                 @SuppressLint("UnsafeExperimentalUsageError") Image mediaImage = imageProxy.getImage();
                 if (mediaImage != null && !QRCodeFound) {
                     InputImage image = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
-                    scanBarcodes(image,imageProxy);
+                    scanBarcodes(image, imageProxy);
                 }
             }
         });
@@ -80,29 +81,19 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void scanBarcodes(InputImage image, ImageProxy imageProxy) {
-        // [START set_detector_options]
-        BarcodeScannerOptions options =
-                new BarcodeScannerOptions.Builder()
-                        .setBarcodeFormats(
-                                Barcode.FORMAT_QR_CODE,
-                                Barcode.FORMAT_AZTEC)
-                        .build();
-        // [END set_detector_options]
 
-        // [START get_detector]
-        BarcodeScanner scanner = BarcodeScanning.getClient();
-        // Or, to specify the formats to recognize:
-        // BarcodeScanner scanner = BarcodeScanning.getClient(options);
-        // [END get_detector]
+        BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(
+                        Barcode.FORMAT_QR_CODE,
+                        Barcode.FORMAT_AZTEC)
+                .build();
 
-        // [START run_detector]
-        Task<List<Barcode>> result = scanner.process(image)
+        BarcodeScanner scanner = BarcodeScanning.getClient(options);
+
+        scanner.process(image)
                 .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
                     @Override
                     public void onSuccess(List<Barcode> barcodes) {
-                        // Task completed successfully
-                        // [START_EXCLUDE]
-                        // [START get_barcodes]
 
                         for (Barcode barcode : barcodes) {
 //                            Rect bounds = barcode.getBoundingBox();

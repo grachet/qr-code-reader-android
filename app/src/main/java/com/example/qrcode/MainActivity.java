@@ -24,6 +24,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 //https://developers.google.com/ml-kit/vision/barcode-scanning/android#java
@@ -32,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
+    private TextView QRCodeTextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView QRCodeTextField = findViewById(R.id.QRCodeTextField);
         String QRCodeValue = getIntent().getStringExtra("QRCodeValue");
-        QRCodeTextField.setText(QRCodeValue);
+        if ( QRCodeValue != null) {
+            generateQRCodeImage(QRCodeValue);
+        }
 
         Button enableCamera = findViewById(R.id.enableCamera);
         enableCamera.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private void enableCamera() {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
+    }
+
+    private void generateQRCodeImage(String QRCodeValue) {
+        QRCodeTextField = findViewById(R.id.QRCodeTextField);
+        QRCodeTextField.setText(QRCodeValue);
     }
 
 }
