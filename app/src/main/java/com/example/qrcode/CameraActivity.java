@@ -2,15 +2,10 @@ package com.example.qrcode;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
-import android.view.OrientationEventListener;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,12 +34,13 @@ import java.util.concurrent.ExecutionException;
 public class CameraActivity extends AppCompatActivity {
     private PreviewView previewView;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private TextView textView;
+    private Boolean QRCodeFound;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+        QRCodeFound = false;
         previewView = findViewById(R.id.previewView);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(new Runnable() {
@@ -69,42 +65,21 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void analyze(@NonNull ImageProxy imageProxy) {
                 @SuppressLint("UnsafeExperimentalUsageError") Image mediaImage = imageProxy.getImage();
-                if (mediaImage != null) {
+                if (mediaImage != null && !QRCodeFound) {
                     InputImage image = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
-
-                    scanBarcodes(image);
+                    scanBarcodes(image,imageProxy);
                 }
             }
         });
 
-//        OrientationEventListener orientationEventListener = new OrientationEventListener(this) {
-//            @Override
-//            public void onOrientationChanged(int orientation) {
-//                textView.setText(Integer.toString(orientation));
-//            }
-//        };
-
-//        orientationEventListener.enable();
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
         preview.setSurfaceProvider(previewView.createSurfaceProvider());
-        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector,
-                imageAnalysis, preview);
+        cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, imageAnalysis, preview);
     }
 
-//    private class QRCodeAnalyzer implements ImageAnalysis.Analyzer {
-//        @Override
-//        public void analyze(ImageProxy imageProxy) {
-//            Image mediaImage = imageProxy.getImage();
-//            if (mediaImage != null) {
-//                InputImage image = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
-//                scanBarcodes(image);
-//            }
-//        }
-//    }
-
-    private void scanBarcodes(InputImage image) {
+    private void scanBarcodes(InputImage image, ImageProxy imageProxy) {
         // [START set_detector_options]
         BarcodeScannerOptions options =
                 new BarcodeScannerOptions.Builder()
@@ -157,20 +132,21 @@ public class CameraActivity extends AppCompatActivity {
                         // [END_EXCLUDE]
                     }
                 })
+                .addOnCompleteListener(results -> imageProxy.close())
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.v("Fail", e.toString());
-                        // Task failed with an exception
-                        // ...
                     }
                 });
+
         // [END run_detector]
     }
 
     private void sendQRCodeToMainActivity(String QRCodeValue) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("QRCodeValue", QRCodeValue);
+        QRCodeFound = true;
         startActivity(intent);
     }
 }
